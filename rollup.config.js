@@ -6,8 +6,11 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import replace from '@rollup/plugin-replace';
+import dotenv from 'dotenv'
 
 const production = !process.env.ROLLUP_WATCH;
+if (!production) { dotenv.config() }
 
 function serve() {
   let server;
@@ -39,6 +42,10 @@ export default {
     file: 'public/build/bundle.js'
   },
   plugins: [
+    replace({
+      preventAssignment: true,
+      __CLIENT_ID__: process.env.CLIENT_ID
+    }),
     svelte({
       preprocess: sveltePreprocess({ sourceMap: !production }),
       compilerOptions: {

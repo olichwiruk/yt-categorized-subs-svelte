@@ -1,10 +1,16 @@
 <script lang="ts">
-  export let name: string;
+  import { router } from 'tinro'
+  import { user } from './stores/auth';
 </script>
 
 <main>
-  <h1>Hello {name}!</h1>
-  <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+  <h1>Google auth</h1>
+
+  {#if $user}
+    <button on:click={() => { user.logout(); router.goto('/') }}>Logout</button>
+  {:else}
+    <button on:click={() => user.signin()}>Sign In</button>
+  {/if}
 </main>
 
 <style>
