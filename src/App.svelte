@@ -1,6 +1,6 @@
 <script lang="ts">
   import { router } from 'tinro'
-  import { user } from './stores/auth';
+  import { user } from './stores/auth'
 </script>
 
 <main>
