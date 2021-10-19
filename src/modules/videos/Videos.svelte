@@ -1,5 +1,6 @@
 <script lang="ts">
   export let playlistId: string;
+  import VideoComponent from './Video.svelte'
 
   import type { Channel } from './entities/Channel'
   import { ChannelRepo } from './repositories/ChannelRepo'
@@ -14,8 +15,10 @@
   let videosPromise: Promise<Video[]>
   $: videosPromise = new Promise(async (r, _) => {
     let channels = await channelsPromise
-    let v = await videoRepo.getVideos({ limit: 30, playlistIds: channels.map(ch => ch.uploadsPlaylistId) })
-    r(v)
+    let videos = await videoRepo.getVideos({ limit: 30, playlistIds: channels.map(ch => ch.uploadsPlaylistId) })
+
+    await videoRepo.fetchDurations(videos.slice(0, 50))
+    r(videos)
   })
 </script>
 
@@ -24,24 +27,33 @@
     Loading...
   {:then channels}
     {#each channels as channel}
-      | {channel.name} |
+      | <a target="_blank" href="https://www.youtube.com/channel/{channel.id}">{channel.name}</a> |
     {/each}
   {/await}
 
-  <br><br>
-
   {#await videosPromise}
+    <br><br>
     Loading...
   {:then videos}
-    {#each videos as video}
-      <a target="_blank" href="https://www.youtube.com/watch?v={video.id}">{video.title}</a>
-      <br>
-    {/each}
+    <div class="videos">
+      {#each videos as video}
+        <VideoComponent {video} />
+      {/each}
+    </div>
   {/await}
 </main>
 
 <style lang="scss">
   main {
     margin: 0 0;
+  }
+
+  .videos {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-gap: 30px 10px;
+    transition: margin-left .3s 0s ease-in-out;
+    margin-left: 250px;
   }
 </style>
