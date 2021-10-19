@@ -5,6 +5,7 @@ html, body {
 }
 
 body {
+  background-color: #fafafa;
   color: #333;
   margin: 0;
   padding: 8px;
@@ -18,7 +19,7 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:visited {
