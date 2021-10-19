@@ -1,10 +1,24 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
+  const { open } = getContext('simple-modal');
+
+  import Player from './Player.svelte';
+
   import type { Video } from './entities/Video'
   export let video: Video;
+
+  const showPlayer = () => {
+    open(Player, { id: video.id }, {
+      closeButton: false,
+      styleWindow: {
+        background: 'rgba(0, 0, 0, 0)'
+      },
+    });
+  };
 </script>
 
 <main>
-  <a target="_blank" href="https://www.youtube.com/watch?v={video.id}">
+  <div class="video" on:click={showPlayer}>
     <div class="thumbnail">
       <img loading="lazy" width="210" alt={video.title} src={video.thumbnailUrl} />
       <span class="duration">{video.duration}</span>
@@ -20,7 +34,7 @@
       <br>
       <span title={video.publishedAt.formatted} class="published-at">{video.publishedAt.fromNow}</span>
     </div>
-  </a>
+  </div>
 </main>
 
 <style lang="scss">
@@ -29,45 +43,51 @@
     margin: 0 0;
   }
 
-  .thumbnail {
-    position: relative;
-
-    & .duration {
-      position: absolute;
-      right: 7px;
-      bottom: 7px;
-      border-radius: 3px;
-      line-height: 1.3em;
-      font-size: 13.5px;
-      font-weight: 500;
-      padding-left: 2%;
-      padding-right: 2%;
-      color: #e3e3e3;
-      background-color: #000;
-      opacity: 0.85;
-    }
-  }
-
-  .header {
-    text-align: left;
-    color: #101010;
-
-    & .title {
-      font-weight: 500;
+  .video {
+    &:hover {
+      cursor: pointer;
     }
 
-    & .channel-name {
-      color: #686464;
-      font-size: 14px;
+    & .thumbnail {
+      position: relative;
 
-      &:hover {
-        color: #575353;
+      & .duration {
+        position: absolute;
+        right: 7px;
+        bottom: 7px;
+        border-radius: 3px;
+        line-height: 1.3em;
+        font-size: 13.5px;
+        font-weight: 500;
+        padding-left: 2%;
+        padding-right: 2%;
+        color: #e3e3e3;
+        background-color: #000;
+        opacity: 0.85;
       }
     }
 
-    .published-at {
-      color: #686464;
-      font-size: 14px;
+    & .header {
+      text-align: left;
+      color: #101010;
+
+      & .title {
+        font-weight: 500;
+      }
+
+      & .channel-name {
+        color: #686464;
+        font-size: 14px;
+
+        &:hover {
+          color: #575353;
+        }
+      }
+
+      .published-at {
+        color: #686464;
+        font-size: 14px;
+      }
     }
   }
 </style>
