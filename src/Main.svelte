@@ -1,11 +1,17 @@
 <script lang="ts">
+  import { Route } from 'tinro'
   import Nav from './modules/navigation/Nav.svelte'
+  import Videos from './modules/videos/Videos.svelte'
 </script>
 
 <main>
   <div class="sidebar">
     <Nav />
   </div>
+
+  <Route path="/playlist/:id" let:meta>
+    <Videos playlistId={meta.params.id} />
+  </Route>
 </main>
 
 <style lang="scss">
