@@ -4,7 +4,7 @@ const { subscribe, update } = writable(null)
 
 gapi.load('client:auth2', (async () => {
   await gapi.client.init({
-    clientId: "__CLIENT_ID__",
+    clientId: "854593356609-06de3ba5ml6mtdvubj3561996h9ajm7k.apps.googleusercontent.com",
     discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"],
     scope: 'https://www.googleapis.com/auth/youtube.readonly'
   })
