@@ -13,7 +13,8 @@ export class ChannelRepo {
 
       const videoItems = (await this.api.client.youtube.playlistItems.list({
         part: 'snippet',
-        playlistId
+        playlistId,
+        maxResults: 50
       })).result.items
 
       const channelIds: string[] = []
