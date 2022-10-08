@@ -1,15 +1,15 @@
 <script lang="ts">
   import { router } from 'tinro'
-  import { user } from './stores/auth'
+  import { session, accessToken } from './stores/auth'
   import Main from './Main.svelte'
 </script>
 
 <main>
-  {#if $user}
-    <button on:click={() => { user.logout(); router.goto('/') }}>Logout</button>
+  {#if $accessToken}
+    <button on:click={() => { session.revoke(); router.goto('/') }}>Revoke</button>
     <Main />
   {:else}
-    <button on:click={() => user.signin()}>Sign In</button>
+    <button on:click={() => session.authorize()}>Authorize</button>
   {/if}
 </main>
 
