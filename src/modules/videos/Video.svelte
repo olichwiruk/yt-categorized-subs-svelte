@@ -11,6 +11,8 @@
     open(Player, { id: video.id }, {
       closeButton: false,
       styleWindow: {
+        width: '680px',
+        height: '400px',
         background: 'rgba(0, 0, 0, 0)'
       },
     });
