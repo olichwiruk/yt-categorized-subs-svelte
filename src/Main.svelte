@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Route } from 'tinro'
+  import { Route, router } from 'tinro'
+  import { session } from './stores/auth'
   import Modal from 'svelte-simple-modal';
 
   import Sidebar from './Sidebar.svelte'
@@ -10,6 +11,7 @@
 <main>
   <Sidebar>
     <Nav />
+    <button on:click={() => { session.revoke(); router.goto('/') }}>Revoke</button>
   </Sidebar>
 
   <Route path="/playlist/:id" let:meta>

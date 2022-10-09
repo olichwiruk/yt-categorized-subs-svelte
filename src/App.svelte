@@ -6,7 +6,6 @@
 
 <main>
   {#if $accessToken}
-    <button on:click={() => { session.revoke(); router.goto('/') }}>Revoke</button>
     <Main />
   {:else}
     <button on:click={() => session.authorize()}>Authorize</button>
