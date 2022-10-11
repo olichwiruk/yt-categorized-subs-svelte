@@ -54,6 +54,5 @@
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     grid-gap: 30px 10px;
     transition: margin-left .3s 0s ease-in-out;
-    margin-left: 250px;
   }
 </style>
