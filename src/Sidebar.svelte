@@ -6,7 +6,10 @@
 </script>
 
 <main>
-  <div class="sidebar">
+  <div class="sidebar"
+    on:mouseenter="{() => { active = true }}"
+    on:mouseleave="{() => (new Promise(() => setTimeout(() => {active=false}, 1000)))}"
+  >
     <div
       class="sidebar__box"
       class:sidebar__box--active="{active}"
@@ -42,7 +45,7 @@
       display: inline-block;
       position: relative;
       background: #f5f5f5;
-      width: 0px;
+      width: 50px;
       height: 100vh;
       transition: width 0.3s 0s ease-in-out;
     }
